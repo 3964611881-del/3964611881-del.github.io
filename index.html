@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- 适配手机端 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>与晨曦的恋爱时间</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(#ffe6f2, #ffd6ec);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: "微软雅黑", sans-serif;
+        }
+        .main-title {
+            font-size: 48px;
+            color: #ff3e96;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 8px #ffb3d9;
+        }
+        .time-wrap {
+            font-size: 32px;
+            color: #ff3e96;
+            text-align: center;
+            line-height: 2.5;
+            font-weight: 500;
+        }
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 20px;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-title">与晨曦的恋爱时间</div>
+    <div class="time-wrap" id="timeShow"></div>
+
+    <script>
+        const startDate = new Date('2025-08-29 00:00:00').getTime();
+        function getLoveTime() {
+            const now = Date.now();
+            const diff = now - startDate;
+            let day = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let hour = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minute = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            let second = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById('timeShow').innerHTML = 
+                `💖 已经在一起 ${day} 天 💖<br>
+                 ${hour} 小时 ${minute} 分钟 ${second} 秒`;
+        }
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+            heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
+        }
+        getLoveTime();
+        setInterval(getLoveTime, 1000);
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
